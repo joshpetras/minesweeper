@@ -2,8 +2,12 @@ export class Board {
   constructor(numberOfRows, numberOfColumns, numberOfBombs) {
     this._numberOfBombs = numberOfBombs;
     this._numberOfTiles = numberOfRows * numberOfColumns;
-    this._playerBoard = Board.generatePlayerBoard(numberOfRows, numberOfColumns);
-    this._bombBoard = Board.generateBombBoard(numberOfRows, numberOfColumns, numberOfBombs);
+    if (this._numberOfBombs >= this._numberOfTiles) {
+      console.log(`Too many bombs for a board with ${this._numberOfTiles} tiles!`);
+    } else {
+      this._playerBoard = Board.generatePlayerBoard(numberOfRows, numberOfColumns);
+      this._bombBoard = Board.generateBombBoard(numberOfRows, numberOfColumns, numberOfBombs);
+    }
   }
 
   get playerBoard() {
