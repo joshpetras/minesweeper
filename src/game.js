@@ -9,7 +9,7 @@
 // game.playMove(0, 1);
 // mark a potential bomb with a flag...
 // game.flag(2, 2);
-// to clear remaining tiles when all bomb flags have been deployed...
+// to flip all remaining tiles...
 // game.clear();
 // When done run `.exit`
 
@@ -72,7 +72,7 @@ class Game {
       if (this._flagCount === 0) {
         this._timer = (new Date() - this._firstDateStamp) / 1000;
         console.log(`All flags have been deployed! Clearing all remaining tiles...`);
-        this.clear(); // Test this function
+        this.clear(); // Automatically clear all remaining tiles when all flags are deployed.
         return;
       }
       this._timer = (new Date() - this._firstDateStamp) / 1000;
