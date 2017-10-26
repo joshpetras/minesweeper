@@ -15,11 +15,16 @@ export class Board {
   }
 
   flipTile(rowIndex, columnIndex) {
-    if (this._playerBoard[rowIndex][columnIndex] !== ' ') {
+
+    if (this._playerBoard[rowIndex][columnIndex] === 'F') {
+      console.log("You can't flip a tile that has a flag on it!");
+      return;
+    } else if (this._playerBoard[rowIndex][columnIndex] !== ' ') {
       console.log('This tile has already been flipped!');
       return;
     } else if (this._bombBoard[rowIndex][columnIndex] === 'B') {
       this._playerBoard[rowIndex][columnIndex] = 'B';
+      return 'B';
     } else {
       this._playerBoard[rowIndex][columnIndex] = this.getNumberOfNeighborBombs(rowIndex, columnIndex);
     }
@@ -77,6 +82,20 @@ export class Board {
         }
       }
     });
+  }
+
+  flipAll() {
+    let bombDetector;
+    for (let i=0; i<this._playerBoard.length; i++) {
+      for (let j=0; j<this._playerBoard[i].length; j++) {
+        if (this._playerBoard[i][j] === ' ') {
+          bombDetector = this.flipTile(i, j);
+          if (bombDetector === 'B') {
+            return true;
+          }
+        }
+      }
+    }
   }
 
   hasSafeTiles() {
