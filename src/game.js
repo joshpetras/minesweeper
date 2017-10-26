@@ -31,8 +31,13 @@ class Game {
         this._board.print();
       }
     } else if (!this._board.hasSafeTiles()) {
-      this._timer = (new Date() - this._firstDateStamp) / 1000;
-      console.log(`Congratulations!! You won in ${this._timer} seconds!`);
+      if (!this._firstDateStamp) {
+        console.log(`Wow!! You won the game on the first move!`);
+        this._board.print();
+      } else {
+        this._timer = (new Date() - this._firstDateStamp) / 1000;
+        console.log(`Congratulations!! You won in ${this._timer} seconds!`);
+      }
     } else {
       if (!this._firstDateStamp) {
         this._firstDateStamp = new Date();

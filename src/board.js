@@ -24,6 +24,9 @@ export class Board {
       this._playerBoard[rowIndex][columnIndex] = this.getNumberOfNeighborBombs(rowIndex, columnIndex);
     }
     this._numberOfTiles--;
+    if (this._playerBoard[rowIndex][columnIndex] === 0) {
+      this.flipNeighbors(rowIndex, columnIndex);
+    }
   }
 
   getNumberOfNeighborBombs(rowIndex, columnIndex) {
@@ -50,6 +53,30 @@ export class Board {
       }
     });
     return numberOfBombs;
+  }
+
+  flipNeighbors(rowIndex, columnIndex) {
+    const neighborOffsets = [
+      [-1, -1],
+      [-1, 0],
+      [-1, 1],
+      [0, -1],
+      [0, 1],
+      [1, -1],
+      [1, 0],
+      [1, 1]
+    ];
+    const numberOfRows = this._playerBoard.length;
+    const numberOfColumns = this._playerBoard[0].length;
+    neighborOffsets.forEach(offset => {
+      const neighborRowIndex = rowIndex + offset[0];
+      const neighborColumnIndex = columnIndex + offset[1];
+      if (neighborRowIndex >= 0 && neighborRowIndex < numberOfRows && neighborColumnIndex >= 0 && neighborColumnIndex < numberOfColumns) {
+        if (this._playerBoard[neighborRowIndex][neighborColumnIndex] === ' ') {
+          this.flipTile(neighborRowIndex, neighborColumnIndex);
+        }
+      }
+    });
   }
 
   hasSafeTiles() {
