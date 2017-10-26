@@ -15,18 +15,35 @@ import {
 class Game {
   constructor(numberOfRows, numberOfColumns, numberOfBombs) {
     this._board = new Board(numberOfRows, numberOfColumns, numberOfBombs);
+    this._timer;
+    this._firstDateStamp;
   }
 
   playMove(rowIndex, columnIndex) {
     this._board.flipTile(rowIndex, columnIndex);
     if (this._board.playerBoard[rowIndex][columnIndex] === 'B') {
-      console.log('Boom!! Game over man!');
-      this._board.print();
+      if (!this._firstDateStamp) {
+        console.log(`Boom!! Game over before it even started!`);
+        this._board.print();
+      } else {
+        this._timer = (new Date() - this._firstDateStamp) / 1000;
+        console.log(`Boom!! Game over in ${this._timer} seconds!`);
+        this._board.print();
+      }
     } else if (!this._board.hasSafeTiles()) {
-      console.log('Congratulations!! You won!');
+      this._timer = (new Date() - this._firstDateStamp) / 1000;
+      console.log(`Congratulations!! You won in ${this._timer} seconds!`);
     } else {
-      console.log('Current Board:');
-      this._board.print();
+      if (!this._firstDateStamp) {
+        this._firstDateStamp = new Date();
+        console.log(`New game starting at ${this._firstDateStamp.toLocaleTimeString()}:`);
+        this._board.print();
+        this._timer = 0;
+      } else {
+        this._timer = (new Date() - this._firstDateStamp) / 1000;
+        console.log(`Current Board - Game Time: ${this._timer}s`);
+        this._board.print();
+      }
     }
   }
 }
