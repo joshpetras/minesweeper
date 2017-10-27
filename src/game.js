@@ -37,6 +37,9 @@ class Game {
     this._timer;
     this._firstDateStamp;
     this._flagCount = this._board._numberOfBombs;
+    console.log(`Generating new game board. Good luck!`)
+    console.log(`Bombs: ${this._board._numberOfBombs} - Flags Remaining: ${this._flagCount}`);
+    this._board.print();
   }
 
   flip(rowIndex, columnIndex) {
@@ -62,7 +65,7 @@ class Game {
     } else {
       if (!this._firstDateStamp) {
         this._firstDateStamp = new Date();
-        console.log(`New game starting at ${this._firstDateStamp.toLocaleTimeString()}:`);
+        console.log(`First move at ${this._firstDateStamp.toLocaleTimeString()}`);
         console.log(`Bombs: ${this._board._numberOfBombs} - Flags Remaining: ${this._flagCount}`);
         this._board.print();
         this._timer = 0;
