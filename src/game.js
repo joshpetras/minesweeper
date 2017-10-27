@@ -1,11 +1,11 @@
-// To play we will create instances of the Minesweeper Game in the command line.
+// To play, we will create instances of the Minesweeper Game in the command line.
 
-// For example:
 // In the command line, navigate to the lib directory and run `node`
 // Run `.load game.js` to load the contents of this file.
-// Then create a Game instance and run commands like so:
-// create a new game instance with a 3 x 3 grid and 3 bombs
-// with Game(rowIndex, columnIndex, numberOfBombs) as follows...
+// To create a Game instance, run the follwing command:
+//   let game = new Game(numberOfRows, numberOfColumns, numberOfBombs);
+
+// For example, to create a 3 x 3 grid with 3 bombs, the command would be...
 //   let game = new Game(3, 3, 3);
 
 // please note that both row and column indexes begin at 0 as follows...
