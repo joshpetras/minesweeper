@@ -18,7 +18,7 @@ This is a terminal based version of the Minesweeper game created in JavaScript.
 
 ### Install
 
-1. `git clone git@github.com:onenetworkguy/minesweeper.git`
+1. `git clone git@github.com:joshpetras/minesweeper.git`
 2. `cd minesweeper`
 3. `npm install`
 
