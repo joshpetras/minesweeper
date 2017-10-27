@@ -1,16 +1,30 @@
-// To play Minesweeper, we will create instances of MineSweeperGame in command line.
+// To play we will create instances of the Minesweeper Game in the command line.
+
 // For example:
 // In the command line, navigate to the lib directory and run `node`
 // Run `.load game.js` to load the contents of this file.
 // Then create a Game instance and run commands like so:
-// create a new game...
-// let game = new Game(3, 3, 3);
-// flip a tile...
-// game.playMove(0, 1);
-// mark a potential bomb with a flag...
-// game.flag(2, 2);
-// to flip all remaining tiles...
-// game.clear();
+// create a new game instance with a 3 x 3 grid and 3 bombs
+// with Game(rowIndex, columnIndex, numberOfBombs) as follows...
+//   let game = new Game(3, 3, 3);
+
+// please note that both row and column indexes begin at 0 as follows...
+//   0,0 | 0,1 | 0,2
+//   1,0 | 1,1 | 1,2
+//   2,0 | 2,1 | 2,2
+
+// to flip a tile...
+//   game.flip(0, 1);
+
+// to mark a potential bomb with a flag...
+//   game.flag(2, 2);
+
+// to remove a flag...
+//   game.unFlag(2, 2);
+
+// to flip all remaining tiles and end game...
+//   game.clear();
+
 // When done run `.exit`
 
 import {
@@ -25,7 +39,7 @@ class Game {
     this._flagCount = this._board._numberOfBombs;
   }
 
-  playMove(rowIndex, columnIndex) {
+  flip(rowIndex, columnIndex) {
     this._board.flipTile(rowIndex, columnIndex);
     if (this._board.playerBoard[rowIndex][columnIndex] === 'B') {
       if (!this._firstDateStamp) {
@@ -43,6 +57,7 @@ class Game {
       } else {
         this._timer = (new Date() - this._firstDateStamp) / 1000;
         console.log(`Congratulations!! You won in ${this._timer} seconds!`);
+        this._board.print();
       }
     } else {
       if (!this._firstDateStamp) {
@@ -73,6 +88,29 @@ class Game {
         this._timer = (new Date() - this._firstDateStamp) / 1000;
         console.log(`All flags have been deployed! Clearing all remaining tiles...`);
         this.clear(); // Automatically clear all remaining tiles when all flags are deployed.
+        return;
+      }
+      this._timer = (new Date() - this._firstDateStamp) / 1000;
+      console.log(`Bombs: ${this._board._numberOfBombs} - Flags Remaining: ${this._flagCount} - Game Time: ${this._timer}s`);
+      this._board.print();
+    }
+  }
+
+  unFlag(rowIndex, columnIndex) {
+    if (this._board.playerBoard[rowIndex][columnIndex] !== 'F') {
+      this._timer = (new Date() - this._firstDateStamp) / 1000;
+      console.log(`This tile does not have a flag on it!`);
+      console.log(`Bombs: ${this._board._numberOfBombs} - Flags Remaining: ${this._flagCount} - Game Time: ${this._timer}s`);
+      this._board.print();
+      return;
+    } else {
+      this._board.playerBoard[rowIndex][columnIndex] = ' ';
+      this._flagCount++;
+      if (this._flagCount === this._board._numberOfBombs) {
+        this._timer = (new Date() - this._firstDateStamp) / 1000;
+        console.log(`All flags have been recovered!`);
+        console.log(`Bombs: ${this._board._numberOfBombs} - Flags Remaining: ${this._flagCount} - Game Time: ${this._timer}s`);
+        this._board.print();
         return;
       }
       this._timer = (new Date() - this._firstDateStamp) / 1000;
