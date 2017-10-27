@@ -25,7 +25,7 @@ This is a terminal based version of the Minesweeper game created in JavaScript.
 ### Play
 
 ```
-// To play Minesweeper, we will create instances of MineSweeperGame in the command line.
+// To play, we will create instances of the Minesweeper Game in the command line.
 
 // For example:
 // In the command line, navigate to the lib directory and run `node`
