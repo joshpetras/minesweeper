@@ -41,7 +41,7 @@ This is a terminal based version of the Minesweeper game created in JavaScript.
 //   2,0 | 2,1 | 2,2
 
 // to flip a tile...
-//   game.playMove(0, 1);
+//   game.flip(0, 1);
 
 // to mark a potential bomb with a flag...
 //   game.flag(2, 2);
